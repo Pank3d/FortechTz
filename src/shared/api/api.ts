@@ -16,14 +16,8 @@ export const getPokemon = async (offset: number, limit: number) => {
     console.log(error);
   }
 };
-/* 
 
-export const getNextPrevPage = async() => {
-  try {
-    const response = await axios.get(base_url)
-    console.log(response)
-    return response
-  } catch (error) {
-    console.log(error)
-  }
-} */
+
+
+
+

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import paginationStore from "../../shared/store/paginationStore";
+import paginationStore from "./paginationStore";
 
 const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
   totalPages,

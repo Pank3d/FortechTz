@@ -5,8 +5,8 @@ export interface PokInter {
     results:dataInter,
 }
 
-export interface dataInter {
-    name:string,
-    url:string
-}
+    export interface dataInter {
+        name:string,
+        url:string
+    }
 
