@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 class PaginationStore {
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
 
   constructor() {
     makeAutoObservable(this);

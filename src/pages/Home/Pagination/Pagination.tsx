@@ -58,7 +58,6 @@ const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
       {pages.map((page) => (
         <button key={page}>
           <Link
-            key={page}
             to={`/home/${page}`}
             onClick={() => paginationStore.setCurrentPage(page)}
           >
