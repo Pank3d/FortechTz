@@ -34,7 +34,7 @@ export default function SwiperComponent({
       <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
         {uniqueImages.map((image, index) => (
           <SwiperSlide key={index}>
-            <img src={image} alt={`Image ${index}`} />
+            <img src={image} alt={`Image ${index}`} className="swiperImage" />
           </SwiperSlide>
         ))}
       </Swiper>

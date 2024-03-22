@@ -3,6 +3,7 @@ import { getPokemonInfo } from "../../shared/api/api";
 import { PokeInfoInter } from "../../shared/type/type";
 import { useParams } from "react-router-dom";
 import Swiper from "../../shared/swiper/Swiper";
+import "./PokemonPages.scss"
 
 const PokemonsPages = () => {
   const [pokeInfo, setPokeInfo] = useState<PokeInfoInter | undefined>();
@@ -25,7 +26,7 @@ const PokemonsPages = () => {
   }, [pokemonName]);
 
   return (
-    <div>
+    <div className="PokemonsPageContainer">
       <Swiper
         back_default={pokeInfo?.sprites.back_default}
         back_female={pokeInfo?.sprites.back_female}

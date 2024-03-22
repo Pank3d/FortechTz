@@ -1,14 +1,13 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import {
-  getPokemon, getPokemonPhoto,
-} from "../../shared/api/api";
-import {  dataInter } from "../../shared/type/type";
+import { getPokemon } from "../../shared/api/api";
+import { dataInter } from "../../shared/type/type";
 import paginationStore from "./Pagination/paginationStore";
 import Pagination from "./Pagination/Pagination";
 import "./Home.scss";
 import Linkkk from "./Link";
+import MyLoader from "../../shared/Skeleton/Skeleton";
 
 const Home: React.FC = observer(() => {
   const { page } = useParams();
@@ -22,14 +21,14 @@ const Home: React.FC = observer(() => {
   const [filteredPokemons, setFilteredPokemons] = useState<
     dataInter[] | undefined
   >();
-
-
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     navigate("/home/1");
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await getPokemon(offset, limit);
@@ -37,10 +36,10 @@ const Home: React.FC = observer(() => {
         setNumberOfPoke(response?.count);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
-
-    
 
     const fetchDataAll = async () => {
       try {
@@ -81,15 +80,18 @@ const Home: React.FC = observer(() => {
     offset + limit
   );
 
+  const totalPokemonsCount =
+    searchTerm !== "" ? filteredPokemons?.length : numberOfPoke || 0;
+
   return (
-    <div>
+    <main className="main_container">
       <div className="inputAndLabel">
         <input
           type="text"
           value={searchTerm}
           onChange={handleSearchChange}
           placeholder="Search Pokemon"
-          className="serch_input"
+          className="search_input"
         />
         <div className="limitChange">
           <label htmlFor="limit">Items per page:</label>
@@ -100,8 +102,16 @@ const Home: React.FC = observer(() => {
         </div>
       </div>
 
-      {searchTerm !== "" ? (
-        <>
+      <div className="content_container">
+        {loading ? (
+          <div className="pokemons">
+            {[...Array(limit)].map((_, index) => (
+              <div key={index}>
+                <MyLoader />
+              </div>
+            ))}
+          </div>
+        ) : searchTerm !== "" ? (
           <div className="pokemons">
             {filteredPokemonsPaginated?.map((pokemon, index) => (
               <div key={index}>
@@ -109,14 +119,7 @@ const Home: React.FC = observer(() => {
               </div>
             ))}
           </div>
-
-          <Pagination
-            totalPages={Math.ceil((filteredPokemons?.length || 0) / limit)}
-            currentPage={parseInt(page || "1", 10)}
-          />
-        </>
-      ) : (
-        <>
+        ) : (
           <div className="pokemons">
             {pokemons?.map((pokemon, index) => (
               <div key={index}>
@@ -124,13 +127,16 @@ const Home: React.FC = observer(() => {
               </div>
             ))}
           </div>
-          <Pagination
-            totalPages={Math.ceil((numberOfPoke || 0) / limit)}
-            currentPage={parseInt(page || "1", 10)}
-          />
-        </>
-      )}
-    </div>
+        )}
+
+        <Pagination
+          totalPages={Math.ceil(
+            (searchTerm !== ""
+              ? filteredPokemons?.length ?? 0
+              : numberOfPoke ?? 0) / limit
+          )} currentPage={paginationStore.currentPage}        />
+      </div>
+    </main>
   );
 });
 

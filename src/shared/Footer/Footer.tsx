@@ -1,11 +1,11 @@
-
+import "./Footer.scss"
 
 const Footer = () => {
-  return <div>
+  return <footer>
     <p>
     This site contains up-to-date data on the Pokemon universe
     </p>
-    </div>;
+    </footer>;
 }
 
 export default Footer
