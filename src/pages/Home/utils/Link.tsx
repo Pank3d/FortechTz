@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getPokemonPhoto } from "../../shared/api/api";
+import { getPokemonPhoto } from "../../../shared/api/api";
 import { Link } from "react-router-dom";
 
 const Linkkk = ({ pokemon }: { pokemon: string }) => {

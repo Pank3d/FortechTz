@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface PokInter {
   counnt: number;
   next: string;
@@ -14,8 +16,7 @@ export interface PokeInfoInter {
   weight: number;
   height: number;
   id: number;
-  order: number;
-  is_default: boolean;
+  order: number
   name: string;
   sprites: ImgInter;
   base_experience: number;
@@ -32,3 +33,38 @@ export interface ImgInter {
   front_shiny_female:string |  undefined;
 }
 
+export interface PokemonFilterResult {
+  filteredPokemons: dataInter[] | undefined;
+  filteredPokemonsPaginated: dataInter[] | undefined;
+  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  searchTerm: string | undefined;
+}
+
+export interface SearchInputProps {
+  value: string | undefined;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface LinmitProps {
+  value: number | undefined;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+export interface fetchInterProps {
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  offset: number;
+  limit: number;
+  setPokemons: React.Dispatch<React.SetStateAction<dataInter[] | undefined>>;
+  setNumberOfPoke: React.Dispatch<React.SetStateAction<number | undefined>>; 
+  setAllPoke: React.Dispatch<React.SetStateAction<dataInter[] | undefined>>;
+  page: string | undefined;
+}
+
+export interface PokeInfoProps {
+  weight: number | undefined;
+  height: number | undefined;
+  id: number | undefined;
+  name: string | undefined;
+  base_experience: number | undefined;
+}

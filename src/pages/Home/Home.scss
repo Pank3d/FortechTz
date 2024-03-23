@@ -14,7 +14,7 @@
 
 
 .pokemons {
-    display: grid;
+    display: grid; 
     grid-template-columns: repeat(5, 2fr);
     gap:20px;
     height: 90vh;

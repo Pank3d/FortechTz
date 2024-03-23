@@ -3,7 +3,8 @@ import { getPokemonInfo } from "../../shared/api/api";
 import { PokeInfoInter } from "../../shared/type/type";
 import { useParams } from "react-router-dom";
 import Swiper from "../../shared/swiper/Swiper";
-import "./PokemonPages.scss"
+import "./PokemonPages.scss";
+import PokemonInfo from "./PokemonInfo/PokemonInfo";
 
 const PokemonsPages = () => {
   const [pokeInfo, setPokeInfo] = useState<PokeInfoInter | undefined>();
@@ -37,27 +38,13 @@ const PokemonsPages = () => {
         front_shiny={pokeInfo?.sprites.front_shiny}
         front_shiny_female={pokeInfo?.sprites.front_shiny_female}
       />
-      <div className="infoOfPokemon">
-        <p className="id">
-          Pokemons ID:{" "}
-          {pokeInfo?.id}
-        </p>
-        <p className="name">
-          Pokemon Name:{" "}
-          {pokeInfo?.name}
-        </p>
-        <p className="weight">
-          Pokemon weight:{" "}
-          {pokeInfo?.weight}
-        </p>
-        <p className="height">
-          Pokemon height:{" "}
-          {pokeInfo?.height}
-        </p>
-        <p className="baseExpirience">Pokemon Base Expirience: {""}
-        {pokeInfo?.base_experience}
-        </p>
-      </div>
+      <PokemonInfo
+        weight={pokeInfo?.weight}
+        height={pokeInfo?.height}
+        id={pokeInfo?.id}
+        name={pokeInfo?.name}
+        base_experience={pokeInfo?.base_experience}
+      />
     </div>
   );
 };
