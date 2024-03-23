@@ -1,5 +1,4 @@
-import "./Header.scss"
-
+import "./Header.scss";
 
 const Header = () => {
   return (
@@ -9,6 +8,6 @@ const Header = () => {
       </p>
     </header>
   );
-}
+};
 
-export default Header
+export default Header;

@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { getPokemonPhoto } from "../../../shared/api/api";
 import { Link } from "react-router-dom";
 
-const Linkkk = ({ pokemon }: { pokemon: string }) => {
+const LinkPokemon = ({ pokemon }: { pokemon: string }) => {
   const [photoUrl, setPhotoUrl] = useState<string>("");
-  console.log(photoUrl);
 
   useEffect(() => {
     const fetchPhoto = async () => {
@@ -20,10 +19,10 @@ const Linkkk = ({ pokemon }: { pokemon: string }) => {
 
   return (
     <Link className="link" to={`/pokemonPage/${pokemon}`}>
-      <p>{pokemon}</p>
+      <p className="pokemom_p">{pokemon}</p>
       {photoUrl && <img src={photoUrl} alt="" className="imgOnHome" />}
     </Link>
   );
 };
 
-export default Linkkk;
+export default LinkPokemon;

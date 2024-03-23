@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { dataInter } from "../../shared/type/type";
-import paginationStore from "./Pagination/paginationStore";
+import paginationStore from "../../app/store/paginationStore";
 import Pagination from "./Pagination/Pagination";
 import "./Home.scss";
-import Linkkk from "./utils/Link";
 import MyLoader from "../../shared/Skeleton/Skeleton";
 import { handleLimitChange } from "./utils/utilsFotHomePage";
 import usePokemonFilter from "./utils/Search/UseFilter";
 import SearchInput from "./utils/Search/SearchInput";
 import { LimitChange } from "./utils/LimitChange/LimitChange";
 import { useFetch } from "./utils/UseFetch/UseFetch";
+import LinkPokemon from "./utils/Link";
 
 const Home: React.FC = observer(() => {
   const { page } = useParams();
   const navigate = useNavigate();
   const [pokemons, setPokemons] = useState<dataInter[] | undefined>();
-  const [numberOfPoke, setNumberOfPoke] = useState<number | undefined>(undefined);
+  const [numberOfPoke, setNumberOfPoke] = useState<number | undefined>(
+    undefined
+  );
   const limit = paginationStore.itemsPerPage;
   const offset = (paginationStore.currentPage - 1) * limit;
   const [allPoke, setAllPoke] = useState<dataInter[] | undefined>();
@@ -55,25 +57,19 @@ const Home: React.FC = observer(() => {
         {loading ? (
           <div className="pokemons">
             {[...Array(limit)].map((_, index) => (
-              <div key={index}>
-                <MyLoader />
-              </div>
+              <MyLoader key={index} />
             ))}
           </div>
         ) : filteredPokemons ? (
           <div className="pokemons">
             {filteredPokemonsPaginated?.map((pokemon, index) => (
-              <div key={index}>
-                <Linkkk pokemon={pokemon.name} />
-              </div>
+              <LinkPokemon key={index} pokemon={pokemon.name} />
             ))}
           </div>
         ) : (
           <div className="pokemons">
             {pokemons?.map((pokemon, index) => (
-              <div key={index}>
-                <Linkkk pokemon={pokemon.name} />
-              </div>
+              <LinkPokemon key={index} pokemon={pokemon.name} />
             ))}
           </div>
         )}

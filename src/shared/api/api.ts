@@ -10,7 +10,6 @@ export const getPokemon = async (offset: number, limit: number) => {
         limit,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -20,7 +19,6 @@ export const getPokemon = async (offset: number, limit: number) => {
 export const getPokemonInfo = async(name:string) => {
   try {
     const response = await axios.get(`${base_url}/${name}`)
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.log(error)
@@ -32,7 +30,6 @@ export const getPokemonInfo = async(name:string) => {
 export const getPokemonPhoto = async (name: string) => {
   try {
     const response = await axios.get(`${base_url}/${name}`);
-    console.log(response.data.sprites.front_default);
     return response.data.sprites.front_default;
   } catch (error) {
     console.log(error);

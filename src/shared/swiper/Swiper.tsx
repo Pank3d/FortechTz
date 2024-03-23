@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-
 import { Pagination } from "swiper/modules";
 import { ImgInter } from "../type/type";
 
@@ -27,17 +26,14 @@ export default function SwiperComponent({
   ];
 
   const uniqueImages = [...new Set(images.filter((image) => image))];
-  console.log(uniqueImages)
 
   return (
-    <>
-      <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
-        {uniqueImages.map((image, index) => (
-          <SwiperSlide key={index}>
-            <img src={image} alt={`Image ${index}`} className="swiperImage" />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+    <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+      {uniqueImages.map((image, index) => (
+        <SwiperSlide key={index}>
+          <img src={image} alt={`Image ${index}`} className="swiperImage" />
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }

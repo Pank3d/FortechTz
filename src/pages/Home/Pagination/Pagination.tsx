@@ -1,52 +1,36 @@
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import paginationStore from "./paginationStore";
+import paginationStore from "../../../app/store/paginationStore";
+import {
+  calculatePagesToShow,
+  nextPage,
+  prevPage,
+} from "./utilsPogination/utilsPagination";
 
 const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
   totalPages,
 }) => {
-  const nextPage = () => {
-    paginationStore.setCurrentPage(paginationStore.currentPage + 1);
-  };
-
-  const prevPage = () => {
-    paginationStore.setCurrentPage(paginationStore.currentPage - 1);
-  };
-
   const maxPagesToShow = 10;
-  let startPage = Math.max(
-    1,
-    paginationStore.currentPage - Math.floor(maxPagesToShow / 2)
+
+  const [startPage, endPage] = calculatePagesToShow(
+    paginationStore.currentPage,
+    totalPages,
+    maxPagesToShow
   );
-  let endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
-
-  if (totalPages < maxPagesToShow) {
-    startPage = 1;
-    endPage = totalPages;
-  } else {
-    if (
-      paginationStore.currentPage >
-      totalPages - Math.floor(maxPagesToShow / 2)
-    ) {
-      startPage = totalPages - maxPagesToShow + 1;
-    }
-
-    if (paginationStore.currentPage <= Math.floor(maxPagesToShow / 2)) {
-      endPage = maxPagesToShow;
-    }
-  }
-
+  
   const pages = [];
   for (let i = startPage; i <= endPage; i++) {
     pages.push(i);
   }
 
   return (
-    <div>
+    <div className="pagination_container">
       {paginationStore.currentPage === 1 ? (
-        <button disabled>prev</button>
+        <button className="prev" disabled>
+          prev
+        </button>
       ) : (
-        <button>
+        <button className="prev">
           <Link
             to={`/home/${paginationStore.currentPage - 1}`}
             onClick={prevPage}
@@ -55,8 +39,9 @@ const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
           </Link>
         </button>
       )}
+      <div className="pagi_button_container">
       {pages.map((page) => (
-        <button key={page}>
+        <button className="pagi_button" key={page}>
           <Link
             to={`/home/${page}`}
             onClick={() => paginationStore.setCurrentPage(page)}
@@ -65,10 +50,13 @@ const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
           </Link>
         </button>
       ))}
+      </div>
       {paginationStore.currentPage === totalPages ? (
-        <button disabled>next</button>
+        <button className="next" disabled>
+          next
+        </button>
       ) : (
-        <button>
+        <button className="next">
           <Link
             to={`/home/${paginationStore.currentPage + 1}`}
             onClick={nextPage}

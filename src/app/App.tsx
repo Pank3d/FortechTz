@@ -10,22 +10,17 @@ const PokemonsPages = lazy(
 
 function App() {
   return (
-    <>
-      <section className="wrapper">
-        <Header />
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home/:page" element={<Home />} />
-            <Route
-              path="/pokemonPage/:pokemonName"
-              element={<PokemonsPages />}
-            />
-          </Routes>
-        </Suspense>
-        <Footer />
-      </section>
-    </>
+    <section className="wrapper">
+      <Header />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home/:page" element={<Home />} />
+          <Route path="/pokemonPage/:pokemonName" element={<PokemonsPages />} />
+        </Routes>
+      </Suspense>
+      <Footer />
+    </section>
   );
 }
 

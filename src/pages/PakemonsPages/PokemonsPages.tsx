@@ -16,7 +16,6 @@ const PokemonsPages = () => {
         if (pokemonName !== undefined) {
           const response = await getPokemonInfo(pokemonName);
           setPokeInfo(response);
-          console.log(response);
         }
       } catch (error) {
         console.log(error);
@@ -24,7 +23,7 @@ const PokemonsPages = () => {
     };
 
     fetchPokeInfo();
-  }, [pokemonName]);
+  }, []);
 
   return (
     <div className="PokemonsPageContainer">
