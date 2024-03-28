@@ -31,3 +31,4 @@ export const calculatePagesToShow = (
 
   return [startPage, endPage];
 };
+

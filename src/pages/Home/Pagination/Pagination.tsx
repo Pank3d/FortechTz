@@ -1,24 +1,32 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import paginationStore from "../../../app/store/paginationStore";
 import {
   calculatePagesToShow,
   nextPage,
   prevPage,
 } from "./utilsPogination/utilsPagination";
+import paginationStore from "../../../app/store/paginationStore";
 
 const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
   totalPages,
 }) => {
-  const maxPagesToShow = 10;
+  const maxPagesToShow: number = 10;
 
-  const [startPage, endPage] = calculatePagesToShow(
-    paginationStore.currentPage,
-    totalPages,
-    maxPagesToShow
-  );
-  
-  const pages = [];
+  const [startPage, setStartPage] = useState<number>(1);
+  const [endPage, setEndPage] = useState<number>(maxPagesToShow);
+
+  React.useEffect(() => {
+    const [newStartPage, newEndPage] = calculatePagesToShow(
+      paginationStore.currentPage,
+      totalPages,
+      maxPagesToShow
+    );
+    setStartPage(newStartPage);
+    setEndPage(newEndPage);
+  }, [paginationStore.currentPage, totalPages]);
+
+  const pages: number[] = [];
   for (let i = startPage; i <= endPage; i++) {
     pages.push(i);
   }
@@ -40,16 +48,24 @@ const Pagination: React.FC<{ totalPages: number; currentPage: number }> = ({
         </button>
       )}
       <div className="pagi_button_container">
-      {pages.map((page) => (
-        <button className="pagi_button" key={page}>
-          <Link
-            to={`/home/${page}`}
-            onClick={() => paginationStore.setCurrentPage(page)}
+        {pages.map((page) => (
+          <button
+            className={`pagi_button ${
+              paginationStore.currentPage === page ? "active" : ""
+            }`}
+            key={page}
           >
-            {page}
-          </Link>
-        </button>
-      ))}
+            <Link
+              to={`/home/${page}`}
+              onClick={() => paginationStore.setCurrentPage(page)}
+              aria-disabled={
+                paginationStore.currentPage === page ? true : false
+              }
+            >
+              {page}
+            </Link>
+          </button>
+        ))}
       </div>
       {paginationStore.currentPage === totalPages ? (
         <button className="next" disabled>

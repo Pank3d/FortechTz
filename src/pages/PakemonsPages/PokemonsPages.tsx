@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import { getPokemonInfo } from "../../shared/api/api";
 import { PokeInfoInter } from "../../shared/type/type";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swiper from "../../shared/swiper/Swiper";
 import "./PokemonPages.scss";
-import PokemonInfo from "./PokemonInfo/PokemonInfo";
+import PokemonInfo from "../../entities/Pokemon/PokemonInfo/PokemonInfo";
+import paginationStore from "../../app/store/paginationStore";
 
 const PokemonsPages = () => {
-  const [pokeInfo, setPokeInfo] = useState<PokeInfoInter | undefined>();
+  const [pokeInfo, setPokeInfo] = useState<PokeInfoInter>();
   const { pokemonName } = useParams();
+  const abortController = new AbortController();
+  const signal = abortController.signal;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPokeInfo = async () => {
       try {
-        if (pokemonName !== undefined) {
-          const response = await getPokemonInfo(pokemonName);
+        if (pokemonName) {
+          const response = await getPokemonInfo(pokemonName, signal);
           setPokeInfo(response);
         }
       } catch (error) {
@@ -25,27 +29,36 @@ const PokemonsPages = () => {
     fetchPokeInfo();
   }, []);
 
+  const handleBackToPage = () => {
+    navigate(`/home/${paginationStore.currentPage}`);
+    console.log(paginationStore.currentPage)
+  };
+
   return (
     <div className="PokemonsPageContainer">
+      <button className="button_back" onClick={handleBackToPage}>
+        Back to page
+      </button>
       <Swiper
-        back_default={pokeInfo?.sprites.back_default}
-        back_female={pokeInfo?.sprites.back_female}
-        back_shiny={pokeInfo?.sprites.back_shiny}
-        back_shiny_female={pokeInfo?.sprites.back_shiny_female}
-        front_default={pokeInfo?.sprites.front_default}
-        front_female={pokeInfo?.sprites.front_female}
-        front_shiny={pokeInfo?.sprites.front_shiny}
-        front_shiny_female={pokeInfo?.sprites.front_shiny_female}
+        backDefault={pokeInfo?.sprites.back_default}
+        backFemale={pokeInfo?.sprites.back_female}
+        backShinyFemale={pokeInfo?.sprites.back_shiny_female}
+        frontDefault={pokeInfo?.sprites.front_default}
+        frontFemale={pokeInfo?.sprites.front_female}
+        frontShiny={pokeInfo?.sprites.front_shiny}
+        frontShinyFemale={pokeInfo?.sprites.front_shiny_female}
       />
       <PokemonInfo
         weight={pokeInfo?.weight}
         height={pokeInfo?.height}
         id={pokeInfo?.id}
         name={pokeInfo?.name}
-        base_experience={pokeInfo?.base_experience}
+        baseExperience={pokeInfo?.baseExperience}
       />
     </div>
   );
 };
 
 export default PokemonsPages;
+ 
+

@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchInputProps } from "../../../../shared/type/type";
+import { SearchInputProps } from "../../../shared/type/type";
 
 const SearchInput: React.FC<SearchInputProps> = ({ value, onChange }) => {
   return (

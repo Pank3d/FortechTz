@@ -6,28 +6,40 @@ import paginationStore from "../../app/store/paginationStore";
 import Pagination from "./Pagination/Pagination";
 import "./Home.scss";
 import MyLoader from "../../shared/Skeleton/Skeleton";
-import { handleLimitChange } from "./utils/utilsFotHomePage";
-import usePokemonFilter from "./utils/Search/UseFilter";
-import SearchInput from "./utils/Search/SearchInput";
-import { LimitChange } from "./utils/LimitChange/LimitChange";
-import { useFetch } from "./utils/UseFetch/UseFetch";
-import LinkPokemon from "./utils/Link";
+import { handleLimitChange } from "../../shared/utilsFotHomePage";
+import usePokemonFilter from "./Search/UseFilter";
+import SearchInput from "./Search/SearchInput";
+import { LimitChange } from "./Pagination/LimitChange/LimitChange";
+import { useFetch } from "../../shared/api/UseFetch/UseFetch";
+import LinkPokemon from "../../entities/Pokemon/PokemonLink/Link";
+import toast, { Toaster } from "react-hot-toast";
 
 const Home: React.FC = observer(() => {
   const { page } = useParams();
-  const navigate = useNavigate();
-  const [pokemons, setPokemons] = useState<dataInter[] | undefined>();
-  const [numberOfPoke, setNumberOfPoke] = useState<number | undefined>(
-    undefined
-  );
-  const limit = paginationStore.itemsPerPage;
-  const offset = (paginationStore.currentPage - 1) * limit;
-  const [allPoke, setAllPoke] = useState<dataInter[] | undefined>();
+  const [pokemons, setPokemons] = useState<dataInter[]>();
+  const [numberOfPoke, setNumberOfPoke] = useState<number>();
+  const limit: number = paginationStore.itemsPerPage;
+  const offset: number = (paginationStore.currentPage - 1) * limit;
+  const [allPoke, setAllPoke] = useState<dataInter[]>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [displayedPokemons, setDisplayedPokemons] = useState<dataInter[]>(); // Новое состояние
 
   useEffect(() => {
-    navigate("/home/1");
+    const savedPage = sessionStorage.getItem("currentPage");
+    paginationStore.setCurrentPage(savedPage ? parseInt(savedPage, 10) : 1);
+
+    const savedLimit = sessionStorage.getItem("limit");
+    if (savedLimit) {
+      paginationStore.setItemsPerPage(parseInt(savedLimit, 10));
+    }
   }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      "currentPage",
+      paginationStore.currentPage.toString()
+    );
+  }, [paginationStore.currentPage]);
 
   useFetch({
     loading: loading,
@@ -40,15 +52,27 @@ const Home: React.FC = observer(() => {
     page: page,
   });
 
-  const {
-    filteredPokemons,
-    filteredPokemonsPaginated,
-    handleSearchChange,
-    searchTerm,
-  } = usePokemonFilter(allPoke, offset, limit);
+  const { filteredPokemons, handleSearchChange, searchTerm, setSearchTerm } =
+    usePokemonFilter(offset, limit, allPoke);
+
+
+    useEffect(() => {
+      if (searchTerm !== '' && displayedPokemons === filteredPokemons && filteredPokemons?.length === 0) {
+           toast.error("Nothing was found for your request");
+      }
+    })
+
+  useEffect(() => {
+    if (searchTerm === "") {
+      setDisplayedPokemons(pokemons);
+    } else {
+      setDisplayedPokemons(filteredPokemons);
+    }
+  }, [pokemons, filteredPokemons, searchTerm]);
 
   return (
     <main className="main_container">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="inputAndLabel">
         <SearchInput onChange={handleSearchChange} value={searchTerm} />
         <LimitChange onChange={handleLimitChange} value={limit} />
@@ -60,15 +84,9 @@ const Home: React.FC = observer(() => {
               <MyLoader key={index} />
             ))}
           </div>
-        ) : filteredPokemons ? (
-          <div className="pokemons">
-            {filteredPokemonsPaginated?.map((pokemon, index) => (
-              <LinkPokemon key={index} pokemon={pokemon.name} />
-            ))}
-          </div>
         ) : (
           <div className="pokemons">
-            {pokemons?.map((pokemon, index) => (
+            {displayedPokemons?.map((pokemon, index) => (
               <LinkPokemon key={index} pokemon={pokemon.name} />
             ))}
           </div>
@@ -76,8 +94,8 @@ const Home: React.FC = observer(() => {
 
         <Pagination
           totalPages={Math.ceil(
-            (filteredPokemons ? filteredPokemons.length : numberOfPoke ?? 0) /
-              limit
+            ((searchTerm === "" ? numberOfPoke : filteredPokemons?.length) ??
+              0) / limit
           )}
           currentPage={paginationStore.currentPage}
         />

@@ -2,19 +2,29 @@ import { useState, useEffect } from "react";
 import { getPokemonPhoto } from "../../../shared/api/api";
 import { Link } from "react-router-dom";
 
-const LinkPokemon = ({ pokemon }: { pokemon: string }) => {
+const LinkPokemon = ({ pokemon }: { pokemon?: string }) => {
   const [photoUrl, setPhotoUrl] = useState<string>("");
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const fetchPhoto = async () => {
       try {
-        const url = await getPokemonPhoto(pokemon);
-        setPhotoUrl(url);
+        if (pokemon !== undefined) {
+          const url = await getPokemonPhoto(pokemon, signal);
+          setPhotoUrl(url);
+        }
       } catch (error) {
         console.log(error);
       }
     };
+
     fetchPhoto();
+
+    return () => {
+      abortController.abort();
+    };
   }, [pokemon]);
 
   return (

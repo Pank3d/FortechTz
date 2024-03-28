@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 
 export interface PokInter {
   counnt: number;
@@ -8,8 +7,8 @@ export interface PokInter {
 }
 
 export interface dataInter {
-  name: string;
-  url: string;
+  name?: string;
+  url?: string;
 }
 
 export interface PokeInfoInter {
@@ -19,34 +18,47 @@ export interface PokeInfoInter {
   order: number
   name: string;
   sprites: ImgInter;
-  base_experience: number;
+  baseExperience: number;
+}
+
+export interface InterProps {
+  backDefault?:string; 
+  backFemale?:string ;
+  backShiny?:string ;
+  backShinyFemale?:string ;
+  frontDefault?:string ;
+  frontFemale?:string ;
+  frontShiny?:string ;
+  frontShinyFemale?:string ;
 }
 
 export interface ImgInter {
-  back_default: string |  undefined;
-  back_female: string |  undefined;
-  back_shiny: string | undefined;
-  back_shiny_female: string | undefined;
-  front_default: string |  undefined;
-  front_female: string |  undefined;
-  front_shiny: string |  undefined;
-  front_shiny_female:string |  undefined;
+  back_default?: string ;
+  back_female?: string ;
+  back_shiny?: string ;
+  back_shiny_female?: string ;
+  front_default?: string ;
+  front_female?: string ;
+  front_shiny?: string ;
+  front_shiny_female?:string; 
 }
 
 export interface PokemonFilterResult {
-  filteredPokemons: dataInter[] | undefined;
-  filteredPokemonsPaginated: dataInter[] | undefined;
+  filteredPokemons?: dataInter[];
+  filteredPokemonsPaginated?: dataInter[];
   handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  searchTerm: string | undefined;
+  searchTerm?: string;
+  filteredPokemonsCount?: number;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface SearchInputProps {
-  value: string | undefined;
+  value?: string; 
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface LinmitProps {
-  value: number | undefined;
+  value?: number;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -58,13 +70,13 @@ export interface fetchInterProps {
   setPokemons: React.Dispatch<React.SetStateAction<dataInter[] | undefined>>;
   setNumberOfPoke: React.Dispatch<React.SetStateAction<number | undefined>>; 
   setAllPoke: React.Dispatch<React.SetStateAction<dataInter[] | undefined>>;
-  page: string | undefined;
+  page?: string ;
 }
 
 export interface PokeInfoProps {
-  weight: number | undefined;
-  height: number | undefined;
-  id: number | undefined;
-  name: string | undefined;
-  base_experience: number | undefined;
+  weight?: number;
+  height?: number;
+  id?: number;
+  name?: string ;
+  baseExperience?: number;
 }

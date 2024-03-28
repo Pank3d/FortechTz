@@ -1,14 +1,19 @@
-import { useState } from "react";
-import { PokemonFilterResult, dataInter } from "../../../../shared/type/type";
+import {  useState } from "react";
+import { PokemonFilterResult, dataInter } from "../../../shared/type/type";
+
+
 const usePokemonFilter = (
-  allPoke: dataInter[] | undefined,
   offset: number,
-  limit: number
+  limit: number,
+  allPoke?: dataInter[]
 ): PokemonFilterResult => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filteredPokemons, setFilteredPokemons] = useState<
-    dataInter[] | undefined
+  const [filteredPokemons, setFilteredPokemons] = useState<dataInter[]>();
+  const [filteredPokemonsCount, setFilteredPokemonsCount] = useState<
+    number | undefined
   >();
+ 
+  console.log(filteredPokemonsCount);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -21,8 +26,9 @@ const usePokemonFilter = (
 
   const filterPokemons = (value: string) => {
     const filtered = allPoke?.filter((pokemon) =>
-      pokemon.name.toLowerCase().includes(value.toLowerCase())
+      pokemon.name?.toLowerCase().includes(value.toLowerCase())
     );
+    setFilteredPokemonsCount(filtered?.length);
     setFilteredPokemons(filtered);
   };
 
@@ -36,6 +42,8 @@ const usePokemonFilter = (
     filteredPokemonsPaginated,
     handleSearchChange,
     searchTerm,
+    filteredPokemonsCount,
+    setSearchTerm,
   };
 };
 

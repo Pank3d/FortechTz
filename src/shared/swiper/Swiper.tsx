@@ -2,27 +2,27 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import { ImgInter } from "../type/type";
+import { ImgInter, InterProps } from "../type/type";
 
 export default function SwiperComponent({
-  back_default,
-  back_female,
-  back_shiny,
-  back_shiny_female,
-  front_default,
-  front_female,
-  front_shiny,
-  front_shiny_female,
-}: ImgInter) {
+  backDefault,
+  backFemale,
+  backShiny,
+  backShinyFemale,
+  frontDefault,
+  frontFemale,
+  frontShiny,
+  frontShinyFemale,
+}:InterProps) {
   const images = [
-    front_default,
-    front_female,
-    front_shiny,
-    front_shiny_female,
-    back_default,
-    back_female,
-    back_shiny,
-    back_shiny_female,
+    backDefault,
+    backFemale,
+    backShiny,
+    backShinyFemale,
+    frontDefault,
+    frontFemale,
+    frontShiny,
+    frontShinyFemale,
   ];
 
   const uniqueImages = [...new Set(images.filter((image) => image))];

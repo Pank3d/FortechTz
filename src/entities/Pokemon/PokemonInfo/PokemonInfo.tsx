@@ -5,7 +5,7 @@ const PokemonInfo = ({
   name,
   weight,
   height,
-  base_experience,
+  baseExperience,
 }: PokeInfoProps) => {
   return (
     <div className="infoOfPokemon">
@@ -15,7 +15,7 @@ const PokemonInfo = ({
       <p className="height">Pokemon height: {height}</p>
       <p className="baseExpirience">
         Pokemon Base Expirience: {""}
-        {base_experience}
+        {baseExperience}
       </p>
     </div>
   );

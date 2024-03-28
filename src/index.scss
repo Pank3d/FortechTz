@@ -1,23 +1,278 @@
+@media screen and (max-width: 961px) {
+  .content_container {
+    .pokemons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+
+  .wrapper {
+    footer {
+      font-size: 20px;
+    }
+  }
+
+  .wrapper {
+    header {
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 653px) {
+  .wrapper {
+    footer {
+      font-size: 15px;
+    }
+  }
+
+  .content_container {
+    .pokemons .link {
+      font-size: 15px;
+    }
+  }
+  .wrapper {
+    header {
+      font-size: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 489px) {
+  .wrapper {
+    footer {
+      font-size: 12px;
+    }
+  }
+  .content_container {
+    .pokemons {
+      margin-bottom: 30px;
+
+      .link {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .wrapper {
+    header {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 392px) {
+  .wrapper {
+    footer {
+      font-size: 10px;
+    }
+  }
+
+  .content_container {
+    .pokemons {
+      margin-bottom: 30px;
+      .link {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .wrapper {
+    header {
+      font-size: 10px;
+    }
+  }
+
+  .content_container {
+    .pagination_container {
+      .pagi_button_container {
+        gap: 5px;
+      }
+    }
+  }
+
+  .main_container {
+    .inputAndLabel {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 923px) {
+  .wrapper {
+    .PokemonsPageContainer {
+      width: 100%;
+      height: 95vh;
+      .mySwiper {
+        height: 40vh;
+        width: 40%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .PokemonsPageContainer {
+      .infoOfPokemon {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 819px) {
+  .wrapper {
+    .PokemonsPageContainer {
+      .mySwiper {
+        height: 35vh;
+        width: 40%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .PokemonsPageContainer {
+      .infoOfPokemon {
+        font-size: 43px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 677px) {
+  .wrapper {
+    .PokemonsPageContainer {
+      .mySwiper {
+        height: 32vh;
+        width: 40%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .PokemonsPageContainer {
+      .infoOfPokemon {
+        font-size: 35px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 519px) {
+  .wrapper {
+    .PokemonsPageContainer {
+      .mySwiper {
+        height: 29vh;
+        width: 48%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .PokemonsPageContainer {
+      .infoOfPokemon {
+        margin-top: 100px;
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 401px) {
+  .wrapper {
+    .PokemonsPageContainer {
+      .mySwiper {
+        margin-top: 40px;
+        height: 29vh;
+        width: 60%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .PokemonsPageContainer {
+      .infoOfPokemon {
+        margin-top: 50px;
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 387px) {
+  .wrapper {
+    .PokemonsPageContainer {
+      .mySwiper {
+        margin-top: 40px;
+        height: 29vh;
+        width: 60%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .PokemonsPageContainer {
+      .infoOfPokemon {
+        font-size: 27px;
+      }
+    }
+  }
+}
+
 #root {
   font-family: "Lato", sans-serif;
-  min-height: 100vh; 
-
+  min-height: 100vh;
 }
 
 body {
   padding: 0;
   margin: 0;
 
-  .wrapper{
-      min-height: 100vh; 
-
+  .wrapper {
+    min-height: 100vh;
   }
 
-  main{
+  main {
     min-height: 100vh;
-    .content_container{
+    .content_container {
       min-height: 100vh;
-      .pokemons{
+      .pokemons {
         min-height: 100vh;
       }
     }
@@ -28,193 +283,5 @@ body {
 
   p {
     display: block;
-  }
-}
-
-@media screen and (max-width: 961px) {
-  .pokemons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr) !important ;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
-  footer {
-    font-size: 20px !important;
-  }
-
-  header {
-    font-size: 20px !important;
-  }
-}
-
-@media screen and (max-width: 653px) {
-  footer {
-    font-size: 15px !important;
-  }
-
-  .pokemons .link {
-    font-size: 15px !important;
-  }
-
-  header {
-    font-size: 15px !important;
-  }
-}
-
-@media screen and (max-width: 489px) {
-  footer {
-    font-size: 12px !important;
-  }
-
-  .pokemons {
-    margin-bottom: 30px !important;
-  }
-
-  .pokemons .link {
-    font-size: 12px !important;
-  }
-
-  header {
-    font-size: 12px !important;
-  }
-}
-
-@media screen and (max-width: 392px) {
-  footer {
-    font-size: 10px !important;
-  }
-
-  .pokemons {
-    margin-bottom: 30px !important;
-  }
-
-  .pokemons .link {
-    font-size: 10px !important;
-  }
-
-  header {
-    font-size: 10px !important;
-  }
-
-  .pagi_button_container {
-    gap: 5px !important;
-  }
-
-  .inputAndLabel {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    margin-right: 5px !important;
-    margin-left: 5px !important;
-  }
-}
-
-@media screen and (max-width: 923px) {
-  .PokemonsPageContainer {
-    width: 100%;
-    height: 95vh !important;
-  }
-
-  .mySwiper {
-    height: 40vh !important;
-    width: 40%;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .infoOfPokemon {
-    font-size: 40px !important;
-  }
-}
-
-@media screen and (max-width: 819px) {
-  .mySwiper {
-    height: 35vh !important;
-    width: 40%;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .infoOfPokemon {
-    font-size: 43px !important;
-  }
-}
-
-@media screen and (max-width: 677px) {
-  .mySwiper {
-    height: 32vh !important;
-    width: 40%;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .infoOfPokemon {
-    font-size: 35px !important;
-  }
-}
-
-@media screen and (max-width: 519px) {
-  .mySwiper {
-    height: 29vh !important;
-    width: 48% !important;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .infoOfPokemon {
-    margin-top: 100px !important;
-    font-size: 30px !important;
-  }
-}
-
-@media screen and (max-width: 401px) {
- 
-
-  .mySwiper {
-    margin-top: 40px;
-    height: 29vh !important;
-    width: 60% !important;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .infoOfPokemon {
-    margin-top: 50px !important;
-    font-size: 30px !important;
-  }
-}
-
-@media screen and (max-width: 387px) {
-
-  .mySwiper {
-    margin-top: 40px;
-    height: 29vh !important;
-    width: 60% !important;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .infoOfPokemon {
-    font-size: 27px !important;
   }
 }

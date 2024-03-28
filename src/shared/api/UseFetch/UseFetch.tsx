@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { fetchInterProps } from "../../../../shared/type/type";
-import { getPokemon } from "../../../../shared/api/api";
+import { fetchInterProps } from "../../type/type";
+import { getPokemon } from "../api";
 
 export const useFetch = ({
   setLoading,
@@ -10,14 +10,18 @@ export const useFetch = ({
   setNumberOfPoke,
   setAllPoke,
   page,
-}:fetchInterProps) => {
+}: fetchInterProps) => {
   useEffect(() => {
     setLoading(true);
+
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const fetchData = async () => {
       try {
-        const response = await getPokemon(offset, limit);
+        const response = await getPokemon(offset, limit, signal);
         setPokemons(response?.results);
-        if (response?.count !== undefined) {
+        if (response?.count) {
           setNumberOfPoke(response?.count);
         }
       } catch (error) {
@@ -29,7 +33,7 @@ export const useFetch = ({
 
     const fetchDataAll = async () => {
       try {
-        const response = await getPokemon(0, 1302);
+        const response = await getPokemon(0, 1302, signal);
         setAllPoke(response?.results);
       } catch (error) {
         console.log(error);
@@ -38,7 +42,9 @@ export const useFetch = ({
 
     fetchData();
     fetchDataAll();
-  }, [page, limit, offset]);
 
+    return () => {
+      abortController.abort();
+    };
+  }, [page, limit, offset, setLoading, setPokemons, setNumberOfPoke, setAllPoke]);
 };
-

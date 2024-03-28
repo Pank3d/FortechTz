@@ -27,3 +27,5 @@ class PaginationStore {
 
 const paginationStore = new PaginationStore();
 export default paginationStore;
+
+
