@@ -52,7 +52,7 @@ const Home: React.FC = observer(() => {
     page: page,
   });
 
-  const { filteredPokemons, handleSearchChange, searchTerm, setSearchTerm } =
+  const { filteredPokemons, handleSearchChange, searchTerm} =
     usePokemonFilter(offset, limit, allPoke);
 
 
